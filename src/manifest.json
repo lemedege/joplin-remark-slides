@@ -1,0 +1,14 @@
+{
+	"manifest_version": 1,
+	"id": "joplin.plugin.slides",
+	"app_min_version": "2.8",
+	"version": "1.0.0",
+	"name": "Joplin slides",
+	"description": "slides of notes content with remarkjs",
+	"author": "lemedege",
+	"homepage_url": "",
+	"repository_url": "",
+	"keywords": [],
+	"icon": "icon.png",
+	"categories": []
+}
