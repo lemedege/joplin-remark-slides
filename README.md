@@ -1,11 +1,8 @@
-# Joplin Plugin
+# Joplin remark slides
 
-This is a template to create a new Joplin plugin.
+Plugin to export selected note as slides using [remark](https://github.com/gnab/remark) javascript.
+Set the export folder in settings and press the button in the toolbar to export slides. 
 
-The main two files you will want to look at are:
-
-- `/src/index.ts`, which contains the entry point for the plugin source code.
-- `/src/manifest.json`, which is the plugin manifest. It contains information such as the plugin a name, version, etc.
 
 ## Building the plugin
 
