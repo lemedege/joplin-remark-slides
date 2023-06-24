@@ -1,14 +1,13 @@
 {
 	"manifest_version": 1,
-	"id": "joplin.plugin.slides",
+	"id": "joplin.remark.slides",
 	"app_min_version": "2.8",
 	"version": "1.0.0",
-	"name": "Joplin slides",
-	"description": "slides of notes content with remarkjs",
+	"name": "Joplin remark slides",
+	"description": "export note to slides using remarkjs",
 	"author": "lemedege",
 	"homepage_url": "",
 	"repository_url": "",
 	"keywords": [],
-	"icon": "icon.png",
 	"categories": []
 }
