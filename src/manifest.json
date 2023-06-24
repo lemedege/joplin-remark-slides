@@ -7,7 +7,7 @@
 	"description": "export note to slides using remarkjs",
 	"author": "lemedege",
 	"homepage_url": "",
-	"repository_url": "",
+	"repository_url": "https://github.com/lemedege/joplin-remark-slides",
 	"keywords": [],
 	"categories": []
 }
