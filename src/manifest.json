@@ -2,12 +2,12 @@
 	"manifest_version": 1,
 	"id": "joplin.remark.slides",
 	"app_min_version": "2.8",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"name": "Joplin remark slides",
 	"description": "export note to slides using remarkjs",
 	"author": "lemedege",
-	"homepage_url": "",
-	"repository_url": "https://github.com/lemedege/joplin-remark-slides",
+	"homepage_url": "https://github.com/lemedege/joplin-remark-slides",
+	"repository_url": "https://github.com/lemedege/joplin-remark-slides.git",
 	"keywords": [],
 	"categories": []
 }

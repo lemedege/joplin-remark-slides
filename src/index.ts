@@ -6,8 +6,11 @@ const path = require('path');
 
 //---------collecting and transfering the static file
 async function resourceFetcher(note, resourceDir: string, destPath: string ) {
+  
+  const installDir = await joplin.plugins.installationDir();
+  await fs.copy(path.join(installDir,'/remark/remark.js'), path.join(destPath,'resources','remark.js'));
+  
   const should_copy_pictures = await joplin.settings.value('copy_pictures');
-  //await fs.copy("/remark/remark.js", path.join(destPath,'resources','remark.js'));
 	const { items } = await joplin.data.get(['notes', note.id, 'resources'] , { fields: ['id', 'title', 'file_extension']} );
 	for( var i = 0; i < items.length; i++ ) {
 		const resource = items[i];
@@ -59,10 +62,6 @@ function renderSlides(note): string {
 `
 return html
 };
-
-
-
-
 
 joplin.plugins.register({
   onStart: async function () {
@@ -123,9 +122,7 @@ joplin.plugins.register({
 
     await resourceFetcher(note, resourceDir, folderPath);
 
-
     let html = renderSlides(note);
-
 
 		await fs.mkdirp(path.join(dest_Path, 'slides', folderName));//markdown
 
