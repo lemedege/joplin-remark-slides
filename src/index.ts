@@ -52,7 +52,7 @@ function renderSlides(note): string {
       <textarea id="source">
       ${note.body}
       </textarea>
-      <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+      <script src="./resources/remark.js">
       </script>
       <script>
         var slideshow = remark.create();
