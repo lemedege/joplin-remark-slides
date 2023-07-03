@@ -33,7 +33,7 @@ function renderSlides(note): string {
   <!DOCTYPE html>
   <html>
     <head>
-      <title>Title</title>
+      <title>${note.title}</title>
       <meta charset="utf-8">
       <style>
         @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -130,7 +130,7 @@ joplin.plugins.register({
     const should_open_browser = await joplin.settings.value('open_after_export');  
     if(should_open_browser){
   
-  
+      console.debug(path.join('file://',dest_Path, 'slides', folderName, `${note.title}.html`));
       await joplin.commands.execute('openItem', path.join('file://',dest_Path, 'slides', folderName, `${note.title}.html`));
     }
 					
