@@ -11,6 +11,7 @@ async function resourceFetcher(note, resourceDir: string, destPath: string ) {
   await fs.copy(path.join(installDir,'/remark/remark.js'), path.join(destPath,'resources','remark.js'));
   
   const should_copy_pictures = await joplin.settings.value('copy_pictures');
+
 	const { items } = await joplin.data.get(['notes', note.id, 'resources'] , { fields: ['id', 'title', 'file_extension']} );
 	for( var i = 0; i < items.length; i++ ) {
 		const resource = items[i];
@@ -28,7 +29,7 @@ async function resourceFetcher(note, resourceDir: string, destPath: string ) {
 };
 
 
-function renderSlides(note): string {
+function renderSlides(note, custom_css): string {
   let html = `
   <!DOCTYPE html>
   <html>
@@ -46,11 +47,19 @@ function renderSlides(note): string {
           font-weight: normal;
         }
         .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+        img{
+          max-width:100%;
+        }
+      </style>
+      <style>
+      ${custom_css}
       </style>
     </head>
     <body>
       <textarea id="source">
-      ${note.body}
+
+${note.body}
+      
       </textarea>
       <script src="./resources/remark.js">
       </script>
@@ -62,6 +71,15 @@ function renderSlides(note): string {
 `
 return html
 };
+
+
+function handle_background_image(note){
+  var regex = /background-image:\s*url\(\s*!?\[([^\]]+)\]\((\S+)\)/g;
+  //var regex = /(background-image: url\()(\!*[^)]+\))/;
+  //note.body = note.body.replace(regex,'img'+'$2');
+  note.body = note.body.replace(regex,'background-image: url('+'$2');
+}
+
 
 joplin.plugins.register({
   onStart: async function () {
@@ -81,6 +99,13 @@ joplin.plugins.register({
 				section: 'slidesSettingSection',
 				public: true,
 				label: 'Slides export directory',
+      },
+      'added_custom_css': {
+				value: '',
+				type: SettingItemType.String,
+				section: 'slidesSettingSection',
+				public: true,
+				label: 'Add custom CSS to slides',
       },
       'copy_pictures': {
 				value: '',
@@ -122,7 +147,11 @@ joplin.plugins.register({
 
     await resourceFetcher(note, resourceDir, folderPath);
 
-    let html = renderSlides(note);
+    handle_background_image(note);
+
+   const custom_css = await joplin.settings.value('added_custom_css');
+
+    let html = renderSlides(note,custom_css);
 
 		await fs.mkdirp(path.join(dest_Path, 'slides', folderName));//markdown
 
