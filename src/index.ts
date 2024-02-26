@@ -29,7 +29,7 @@ async function resourceFetcher(note, resourceDir: string, destPath: string ) {
 };
 
 
-function renderSlides(note, custom_css): string {
+function renderSlides(note, custom_css, screen_ratio): string {
   let html = `
   <!DOCTYPE html>
   <html>
@@ -64,7 +64,7 @@ ${note.body}
       <script src="./resources/remark.js">
       </script>
       <script>
-        var slideshow = remark.create();
+        var slideshow = remark.create({ ratio: "${screen_ratio}" });
       </script>
     </body>
   </html>
@@ -121,7 +121,18 @@ joplin.plugins.register({
 				public: true,
 				label: 'Open slides after export',
       },
-    
+      'screen_ratio': {
+				value: '4:3',
+				type: SettingItemType.String,
+				section: 'slidesSettingSection',
+        isEnum: true,
+				public: true,
+				label: 'Screen ratio',
+        options: {
+            '4:3' : '4:3',
+            '16:9' : '16:9',
+        },
+      },
     }
     );
 
@@ -150,8 +161,9 @@ joplin.plugins.register({
     handle_background_image(note);
 
    const custom_css = await joplin.settings.value('added_custom_css');
+   const screen_ratio = await joplin.settings.value('screen_ratio');
 
-    let html = renderSlides(note,custom_css);
+    let html = renderSlides(note,custom_css,screen_ratio);
 
 		await fs.mkdirp(path.join(dest_Path, 'slides', folderName));//markdown
 
